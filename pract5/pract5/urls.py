@@ -14,3 +14,9 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
 )
+
+if settings.DEBUG and settings.STATIC_ROOT:
+    urlpatterns += patterns('',
+        (r'%s(?P<path>.*)$' % settings.STATIC_URL.lstrip('/'), 
+            'django.views.static.serve',
+            {'document_root' : settings.STATIC_ROOT }),)
